@@ -6,7 +6,7 @@
 /*   By: mekherbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 21:16:26 by mekherbo          #+#    #+#             */
-/*   Updated: 2024/01/08 19:39:59 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/01/10 20:42:41 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_game
 	void	*img_wall;
 	void	*img_player;
 	void	*img_item;
+	void	*img_enemy;
 	void	*img_exit;
 	char	**map;
 	int		map_length;
@@ -43,7 +44,11 @@ typedef struct s_game
 	int		moves;
 	int		e;
 	int		c;
+	int		flag;
+	int		clock;
 	int		p;
+	int		x_enemy;
+	int		y_enemy;
 }	t_game;
 
 # define WHITE 0xffffff
@@ -73,6 +78,7 @@ int		check_exit(t_game *game);
 
 //      bonus functions           //
 void	display_move(t_game *game);
+int	animations(t_game *game);
 
 # define KEY_W 119
 # define KEY_A 97

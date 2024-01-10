@@ -17,11 +17,20 @@ static void	img_draw(t_game *game, void *image, int x, int y)
 		(game->mlx, game->win, image, x * 32, y * 32);
 }
 
-static void	player_pos_and_draw(t_game *game, void *image, int x, int y)
+static void	player_pos_and_draw(t_game *game, int x, int y)
 {
-	game->x_player = x;
-	game->y_player = y;
-	img_draw(game, image, x, y);
+	if (game->map[y][x] == 'P')
+	{
+		game->x_player = x;
+		game->y_player = y;
+		img_draw(game, game->img_player, x, y);
+	}
+	else
+	{
+		game->x_enemy = x;
+		game->y_enemy = y;
+		img_draw(game, game->img_enemy, x, y);
+	}
 }
 
 static void	door_state(t_game *game)
@@ -55,11 +64,12 @@ int	map_draw(t_game *game)
 				img_draw(game, game->img_item, x, y);
 			else if (game->map[y][x] == 'E')
 				img_draw(game, game->img_exit, x, y);
-			else if (game->map[y][x] == 'P')
-				player_pos_and_draw(game, game->img_player, x, y);
+			else if (game->map[y][x] == 'P' || game->map[y][x] == 'N')
+				player_pos_and_draw(game,x, y);
 		}
 	}
 	if (game->endgame)
 		free_game(game);
+	display_move(game);
 	return (1);
 }

@@ -34,6 +34,10 @@ static void	init_image(t_game *game)
 			&game->img_width, &game->img_length);
 	if (game->img_exit == NULL)
 		free_xpm(game);
+	game->img_enemy = mlx_xpm_file_to_image(game->mlx, "assets/en1.xpm",
+			&game->img_width, &game->img_length);
+	if (game->img_enemy == NULL)
+		free_xpm(game);
 }
 
 static void	size_window(t_game *game)
@@ -52,11 +56,14 @@ void	init_game(t_game *game)
 	if (!check_exit(game))
 		return ;
 	game->moves = 0;
+	game->clock = 0;
 	game->endgame = 0;
+	game->flag = 0;
 	game->img_back = NULL;
 	game->img_wall = NULL;
 	game->img_item = NULL;
 	game->img_player = NULL;
+	game->img_enemy = NULL;
 	game->img_exit = NULL;
 	game->items = game->c;
 	game->mlx = mlx_init();

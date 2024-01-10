@@ -13,7 +13,7 @@
 
 static int	is_valid_c(char c)
 {
-	if (c != '0' && c != '1' && c != 'E' && c != 'C' && c != 'P')
+	if (c != '0' && c != '1' && c != 'E' && c != 'C' && c != 'P' && c != 'N')
 		return (0);
 	return (1);
 }

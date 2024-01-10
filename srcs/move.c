@@ -89,6 +89,8 @@ void	up_move(t_game *game)
 	else if (game->map[game->y_player - 1][game->x_player] == 'E'
 		|| game->map[game->y_player - 1][game->x_player] == '1')
 		return ;
+	else if (game->map[game->y_player - 1][game->x_player] == 'N')
+		game->endgame = 1;
 	else
 	{
 		game->map[game->y_player][game->x_player] = '0';
@@ -115,6 +117,8 @@ void	down_move(t_game *game)
 	else if (game->map[game->y_player + 1][game->x_player] == 'E'
 		|| game->map[game->y_player + 1][game->x_player] == '1')
 		return ;
+	else if (game->map[game->y_player + 1][game->x_player] == 'N')
+		game->endgame = 1;
 	else
 	{
 		game->map[game->y_player][game->x_player] = '0';
@@ -141,6 +145,8 @@ void	right_move(t_game *game)
 	else if (game->map[game->y_player][game->x_player + 1] == 'E'
 		|| game->map[game->y_player][game->x_player + 1] == '1')
 		return ;
+	else if (game->map[game->y_player][game->x_player + 1] == 'N')
+		game->endgame = 1;
 	else
 	{
 		game->map[game->y_player][game->x_player] = '0';
@@ -167,6 +173,8 @@ void	left_move(t_game *game)
 	else if (game->map[game->y_player][game->x_player - 1] == 'E'
 		|| game->map[game->y_player][game->x_player - 1] == '1')
 		return ;
+	else if (game->map[game->y_player][game->x_player - 1] == 'N')
+		game->endgame = 1;
 	else
 	{
 		game->map[game->y_player][game->x_player] = '0';
