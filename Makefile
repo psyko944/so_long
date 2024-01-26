@@ -10,6 +10,7 @@ SRCS = srcs/main.c \
 	   srcs/move.c \
 	   srcs_bonus/animations.c \
 	   srcs/check_map.c \
+	   srcs/swap_xpm.c \
 	   srcs/algo.c
 	   
 # Colors
@@ -43,8 +44,13 @@ OBJS = ${SRCS:.c=.o}
 $(NAME): $(PRINTF) $(LIBFT) $(MLX) $(OBJS) 
 		${CC} $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) $(MLX) $(MLXFLAGS) -o $(NAME)
 
+$(NAME_BONUS): $(PRINTF) $(LIBFT) $(MLX) $(OBJS) 
+		${CC} $(CFLAGS) $(OBJS) $(LIBFT) $(PRINTF) $(MLX) $(MLXFLAGS) -o $(NAME_BONUS)
+
 all:	$(NAME)
 		@echo "$(GREEN)so_long compiled!$(DEF_COLOR)"
+
+bonus: $(NAME_BONUS)
 
 $(LIBFT):
 				$(MAKE) -C $(LIBFT_DIR)
@@ -67,10 +73,10 @@ clean:
 fclean: clean
 	@$(MAKE) -C $(LIBFT_DIR) fclean
 	@$(MAKE) -C $(PRINTF_DIR) fclean
-	@$(RM) $(NAME)
+	@$(RM) $(NAME) $(NAME_BONUS)
 	@echo "$(CYAN) have been deleted$(DEF_COLOR)"
 
 re: fclean all
 	@echo "$(GREEN)Cleaned and rebuilt everything for so_long!$(DEF_COLOR)"
 
-.PHONY: all clean fclean re minilibx libft printf
+.PHONY: all clean fclean re minilibx libft printf bonus

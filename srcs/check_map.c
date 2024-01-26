@@ -6,7 +6,7 @@
 /*   By: mekherbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:11:26 by mekherbo          #+#    #+#             */
-/*   Updated: 2023/12/15 18:12:18 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:39:18 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -52,6 +52,8 @@ static int	is_correct_middle_line(char *line, t_game *game)
 			game->e += 1;
 		if (line[i] == 'C')
 			game->c += 1;
+		if (line[i] == 'N')
+			game->n += 1;
 	}
 	i++;
 	if (line[i] != '1')
@@ -78,6 +80,7 @@ int	check(t_game *game)
 	game->e = 0;
 	game->p = 0;
 	game->c = 0;
+	game->n = 0;
 	if (!is_rectangular(game->map))
 		return (0);
 	if (!check_wall(game->map[0]))
@@ -92,7 +95,8 @@ int	check(t_game *game)
 				return (0);
 		i++;
 	}
-	if (game->p != 1 || game->e == 0 || game->c == 0)
-		return (0);
+	if (game->p != 1 || game->e != 1 || game->c == 0
+		|| (game->bonus == 0 && game->n > 0))
+		return (ft_printf("Wrong characters in map\n"), 0);
 	return (1);
 }

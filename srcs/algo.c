@@ -12,31 +12,42 @@
 
 #include "so_long.h"
 
-static void	algo(char **arr, int y, int x, int *e, int *items)
+static void	algo2(char **arr, int y, int x, t_algo *class)
 {
 	if (arr[y][x] == 'E')
-		*e = 1;
+	{
+		arr[y][x] = '1';
+		class->e = 1;
+	}
 	else if (arr[y][x] == 'C')
-		ft_printf("%d\n", --*items);
+	{
+		arr[y][x] = '0';
+		--class->items;
+	}	
+}
+
+static void	algo(char **arr, int y, int x, t_algo *class)
+{
+	algo2(arr, y, x, class);
 	if (arr[y][x - 1] != '1')
 	{
 		arr[y][x] = '1';
-		algo(arr, y, x - 1, e, items);
+		algo(arr, y, x - 1, class);
 	}
 	if (arr[y + 1][x] != '1')
 	{
 		arr[y][x] = '1';
-		algo(arr, y + 1, x, e, items);
+		algo(arr, y + 1, x, class);
 	}
 	if (arr[y - 1][x] != '1')
 	{
 		arr[y][x] = '1';
-		algo(arr, y - 1, x, e, items);
+		algo(arr, y - 1, x, class);
 	}
 	if (arr[y][x + 1] != '1')
 	{
 		arr[y][x] = '1';
-		algo(arr, y, x + 1, e, items);
+		algo(arr, y, x + 1, class);
 	}
 }
 
@@ -64,17 +75,14 @@ static char	**cpy_map(char **map)
 	return (cpy);
 }
 
-int	check_exit(t_game *game)
+static void	runtime(t_algo *class, t_game *game, char **map_cpy)
 {
-	int		x;
-	int		y;
-	int		e;
-	char	**map_cpy;
-	int		items;
+	int	x;
+	int	y;
 
-	e = 0;
 	y = -1;
-	items = game->c;
+	class->items = game->c;
+	class->e = 0;
 	map_cpy = cpy_map(game->map);
 	while (map_cpy[++y])
 	{
@@ -82,12 +90,20 @@ int	check_exit(t_game *game)
 		while (map_cpy[y][++x])
 		{
 			if (map_cpy[y][x] == 'P')
-				algo(map_cpy, y, x, &e, &items);
+				algo(map_cpy, y, x, class);
 		}
 	}
 	free_map(map_cpy);
-	ft_printf("items = %d\n", items);
-	if (e == 1 &&  items == 0)
+}
+
+int	check_exit(t_game *game)
+{
+	t_algo	class;
+	char	**map_cpy;
+
+	map_cpy = NULL;
+	runtime(&class, game, map_cpy);
+	if (class.e == 1 && class.items == 0)
 		return (1);
 	ft_printf("there is no path to the exit\n");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: mekherbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 18:12:59 by mekherbo          #+#    #+#             */
-/*   Updated: 2023/12/15 18:13:41 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:34:40 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -21,7 +21,6 @@ static void	move_player(int keycode, t_game *game)
 		left_move(game);
 	else if (keycode == KEY_D)
 		right_move(game);
-	//display_move(game);
 }
 
 static int	key_choice(int keycode, t_game *game)
@@ -38,5 +37,6 @@ void	hook(t_game *game)
 	display_move(game);
 	mlx_hook(game->win, 2, 1L << 0, key_choice, game);
 	mlx_hook(game->win, 17, 1L << 17, free_game, game);
-	mlx_loop_hook(game->mlx, animations, game);
+	if (game->bonus)
+		mlx_loop_hook(game->mlx, animations, game);
 }

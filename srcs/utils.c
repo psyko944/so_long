@@ -27,6 +27,8 @@ void	free_xpm(t_game *game)
 	if (game->img_enemy != NULL)
 		mlx_destroy_image(game->mlx, game->img_enemy);
 	ft_printf("Error\n xpm file\n");
+	if (game->enemy != NULL)
+		free(game->enemy);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);
@@ -66,6 +68,8 @@ int	free_game(t_game *game)
 	mlx_destroy_image(game->mlx, game->img_player);
 	if (game->img_enemy != NULL)
 		mlx_destroy_image(game->mlx, game->img_enemy);
+	if (game->enemy != NULL)
+		free(game->enemy);
 	mlx_destroy_window(game->mlx, game->win);
 	mlx_destroy_display(game->mlx);
 	free(game->mlx);

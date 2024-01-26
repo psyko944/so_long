@@ -6,7 +6,7 @@
 /*   By: mekherbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 17:06:10 by mekherbo          #+#    #+#             */
-/*   Updated: 2023/12/15 17:07:35 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/01/12 19:34:04 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,26 @@ static void	size_window(t_game *game)
 	game->map_length = i * 32;
 }
 
+static void	make_enemy_point(t_game *game)
+{
+	int	i;
+
+	i = 0;
+	game->enemy = malloc(sizeof(t_enemy) * game->n);
+	if (game->enemy == NULL)
+		return ;
+	while (i < game->n)
+	{
+		game->enemy[i].y = 0;
+		game->enemy[i].x = 0;
+		if (i % 2)
+			game->enemy[i].flag = 0;
+		else
+			game->enemy[i].flag = 1;
+		i++;
+	}
+}
+
 void	init_game(t_game *game)
 {
 	if (!check_exit(game))
@@ -59,6 +79,8 @@ void	init_game(t_game *game)
 	game->clock = 0;
 	game->endgame = 0;
 	game->flag = 0;
+	game->i = 0;
+	game->enemy = NULL;
 	game->img_back = NULL;
 	game->img_wall = NULL;
 	game->img_item = NULL;
@@ -66,6 +88,8 @@ void	init_game(t_game *game)
 	game->img_enemy = NULL;
 	game->img_exit = NULL;
 	game->items = game->c;
+	if (game->bonus)
+		make_enemy_point(game);
 	game->mlx = mlx_init();
 	size_window(game);
 	game->win = mlx_new_window

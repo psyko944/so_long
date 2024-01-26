@@ -6,7 +6,7 @@
 /*   By: mekherbo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/15 19:22:20 by mekherbo          #+#    #+#             */
-/*   Updated: 2023/12/15 19:22:23 by mekherbo         ###   ########.fr       */
+/*   Updated: 2024/01/19 18:06:36 by mekherbo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "so_long.h"
@@ -27,9 +27,13 @@ static void	player_pos_and_draw(t_game *game, int x, int y)
 	}
 	else
 	{
-		game->x_enemy = x;
-		game->y_enemy = y;
-		img_draw(game, game->img_enemy, x, y);
+		if (game->bonus)
+		{
+			game->enemy[game->i].x = x;
+			game->enemy[game->i].y = y;
+			img_draw(game, game->img_enemy, x, y);
+			game->i++;
+		}
 	}
 }
 
@@ -42,6 +46,21 @@ static void	door_state(t_game *game)
 		game->img_exit = mlx_xpm_file_to_image(game->mlx,
 				"assets/open_door.xpm", &game->img_width, &game->img_length);
 	}
+}
+
+static void	finish_game(t_game *game)
+{
+	game->i = 0;
+	if (game->endgame)
+	{
+		if (!game->won)
+			ft_printf("Game Over\n");
+		else
+			ft_printf("Bravo tu as gagner la partie\n");
+		free_game(game);
+	}
+	if (game->bonus == 1)
+		display_move(game);
 }
 
 int	map_draw(t_game *game)
@@ -65,11 +84,9 @@ int	map_draw(t_game *game)
 			else if (game->map[y][x] == 'E')
 				img_draw(game, game->img_exit, x, y);
 			else if (game->map[y][x] == 'P' || game->map[y][x] == 'N')
-				player_pos_and_draw(game,x, y);
+				player_pos_and_draw(game, x, y);
 		}
 	}
-	if (game->endgame)
-		free_game(game);
-	display_move(game);
+	finish_game(game);
 	return (1);
 }
