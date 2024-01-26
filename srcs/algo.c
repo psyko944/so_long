@@ -14,37 +14,36 @@
 
 static void	algo2(char **arr, int y, int x, t_algo *class)
 {
-	if (arr[y][x] == 'E')
-	{
-		arr[y][x] = '1';
+	if (arr[y][x - 1] == 'E' || arr[y][x + 1] == 'E')
 		class->e = 1;
-	}
+	else if (arr[y + 1][x] == 'E' || arr[y - 1][x] == 'E')
+		class->e = 1;
 	else if (arr[y][x] == 'C')
 	{
 		arr[y][x] = '0';
 		--class->items;
-	}	
+	}
 }
 
 static void	algo(char **arr, int y, int x, t_algo *class)
 {
 	algo2(arr, y, x, class);
-	if (arr[y][x - 1] != '1')
+	if (arr[y][x - 1] != '1' && arr[y][x - 1] != 'E')
 	{
 		arr[y][x] = '1';
 		algo(arr, y, x - 1, class);
 	}
-	if (arr[y + 1][x] != '1')
+	if (arr[y + 1][x] != '1' && arr[y + 1][x] != 'E')
 	{
 		arr[y][x] = '1';
 		algo(arr, y + 1, x, class);
 	}
-	if (arr[y - 1][x] != '1')
+	if (arr[y - 1][x] != '1' && arr[y - 1][x] != 'E')
 	{
 		arr[y][x] = '1';
 		algo(arr, y - 1, x, class);
 	}
-	if (arr[y][x + 1] != '1')
+	if (arr[y][x + 1] != '1' && arr[y][x + 1] != 'E')
 	{
 		arr[y][x] = '1';
 		algo(arr, y, x + 1, class);
