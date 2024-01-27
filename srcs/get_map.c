@@ -23,6 +23,7 @@ static int	check_fd(int fd, char *filename)
 	}
 	else
 	{
+		ft_printf("Error\nopen directory instead file\n");
 		close(fd);
 		exit(1);
 	}

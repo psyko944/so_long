@@ -88,6 +88,8 @@ int	check(t_game *game)
 	i++;
 	while (game->map[i])
 	{
+		if (!*game->map[i])
+			return (0);
 		if (!is_correct_middle_line(game->map[i], game))
 			return (0);
 		if (game->map[i + 1] == NULL)

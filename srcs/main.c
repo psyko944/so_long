@@ -25,9 +25,6 @@ static int	check_args(char *av)
 	if (av[i] == 'r' && av[i - 1] == 'e'
 		&& av[i - 2] == 'b' && av[i - 3] == '.')
 		return (1);
-	ft_printf(
-		"Error\nwrong formats of maps : %s good format is : ./so_long *.ber\n",
-		av);
 	return (0);
 }
 
@@ -45,12 +42,12 @@ int	main(int ac, char **av, char **envp)
 			game.bonus = 0;
 		game.map = get_map(av[1]);
 		game.won = 0;
-		if (game.map == NULL)
-			return (0);
+		if (game.map == NULL || *game.map == NULL)
+			return (ft_printf("Error\ninvalid map\n"), 1);
 		if (check_args(av[1]) && check(&game))
 			init_game(&game);
 		else
-			ft_printf("invalid map\n");
+			ft_printf("Error\ninvalid map\n");
 		if (game.map)
 			free_map(game.map);
 	}
