@@ -103,8 +103,8 @@ int		check_exit(t_game *game);
 //      functions for swap xpm player  //
 void	parse_move(t_game *game);
 void	parse_move2(t_game *game);
-void	parse_move3(t_game *game, int flag_l);
-void	parse_move4(t_game *game, int flag_l);
+void	parse_move3(t_game *game, int *flag_l);
+void	parse_move4(t_game *game, int *flag_l);
 void	parse_move5(t_game *game);
 
 //      bonus functions           //

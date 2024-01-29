@@ -85,8 +85,7 @@ int	check(t_game *game)
 		return (0);
 	if (!check_wall(game->map[0]))
 		return (0);
-	i++;
-	while (game->map[i])
+	while (game->map[++i])
 	{
 		if (!*game->map[i])
 			return (0);
@@ -95,7 +94,6 @@ int	check(t_game *game)
 		if (game->map[i + 1] == NULL)
 			if (!check_wall(game->map[i]))
 				return (0);
-		i++;
 	}
 	if (game->p != 1 || game->e != 1 || game->c == 0
 		|| (game->bonus == 0 && game->n > 0))

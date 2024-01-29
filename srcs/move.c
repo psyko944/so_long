@@ -21,9 +21,9 @@ static void	swap_h_moves(t_game *game, int flag)
 	else if (flag == 1 && flag_l == 0)
 		parse_move2(game);
 	else if (flag == 2)
-		parse_move3(game, flag_l);
+		parse_move3(game, &flag_l);
 	else if (flag == 3)
-		parse_move4(game, flag_l);
+		parse_move4(game, &flag_l);
 	else if (flag == 4 && flag_l == 1)
 		parse_move5(game);
 	else
